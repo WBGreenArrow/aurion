@@ -1,15 +1,14 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UserService } from '../user/user.service';
 import { compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { AuthDTO } from './auth.dto';
+import { AuthDto, AuthResponseDto } from './auth.dto';
 import { PrismaService } from 'src/database/PrismaService';
 
 @Injectable()
 export class AuthService {
   constructor(private prisma: PrismaService, private jwtService: JwtService) {}
 
-  async signIn({ email, password: pass }: AuthDTO) {
+  async signIn({ email, password: pass }: AuthDto): Promise<AuthResponseDto> {
     const user = await this.prisma.user.findFirst({
       where: {
         email,
