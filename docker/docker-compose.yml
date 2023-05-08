@@ -11,3 +11,14 @@ services:
       - ../back-end:/usr/src/app
       - ../back-end/node_modules:/usr/src/app/node_modules
       - ../back-end/prisma:/usr/src/app/prisma 
+
+  front-end:
+    build:
+      context: ../front-end
+      dockerfile: Dockerfile
+      target: development
+    ports:
+      - "3002:3002"
+    volumes:
+      - ../front-end:/usr/src/app
+      - ../front-end/node_modules:/usr/src/app/node_modules
